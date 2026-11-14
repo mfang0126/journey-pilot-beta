@@ -1,0 +1,36 @@
+#!/bin/sh
+# Source-checkout launcher. No install, no dependency changes.
+# Resolves the real script location (including symlinks), prepends this
+# checkout's src/ to PYTHONPATH, and runs the module from any cwd.
+# JOURNEY_PILOT_HOME is inherited unchanged; the CLI resolves the shared Store.
+set -eu
+
+case $0 in
+  */*) script=$0 ;;
+  *) script=$(command -v -- "$0") ;;
+esac
+
+while [ -h "$script" ]; do
+  dir=$(CDPATH= cd -- "$(dirname -- "$script")" && pwd)
+  link=$(readlink "$script")
+  case $link in
+    /*) script=$link ;;
+    *) script=$dir/$link ;;
+  esac
+done
+
+repo=$(CDPATH= cd -- "$(dirname -- "$script")/.." && pwd)
+src=$repo/src
+
+if [ ! -d "$src/journey_pilot" ]; then
+  echo "journey-pilot: source tree not found at $src" >&2
+  exit 127
+fi
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "journey-pilot: python3 is required" >&2
+  exit 127
+fi
+
+PYTHONPATH="$src${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH
+exec python3 -m journey_pilot.cli "$@"

@@ -1,0 +1,59 @@
+THIRD-PARTY NOTICES
+
+Journey Pilot does not vendor a third-party source tree. It calls the following
+project at runtime and follows one of its OCR geometry calculations. The notice
+below is an attribution and does not decide Journey Pilot's own license.
+
+-------------------------------------------------------------------------------
+phone-harness
+-------------------------------------------------------------------------------
+Project:  phone-harness
+Upstream: https://github.com/ShawnPana/phone-harness
+Version:  0.3.0 (pyproject.toml in the reviewed checkout)
+Commit:   88b3642ac4733c47daf12e0f2837bc789eda63c6 (2026-09-20)
+License:  MIT
+Source:   phone-harness/LICENSE, SHA-256
+          18e66d0f33ecd712f960c2b76e36279c613d1cfbd425cc9537f8e84a767f35b3
+
+Relationship:
+- Journey Pilot invokes the installed `phone-harness` executable to perform
+  device actions and observations.
+- The pixel-observation script in src/journey_pilot/adapter.py imports
+  `phone_harness.ocr` and mirrors the upstream coordinate normalization
+  (`recognize`) while setting recognition languages explicitly.
+- phone-harness is not bundled with Journey Pilot. Users install it separately.
+
+phone-harness is distributed under the MIT License:
+
+MIT License
+
+Copyright (c) 2026 shawn pana
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-------------------------------------------------------------------------------
+Notes
+-------------------------------------------------------------------------------
+- `adb` and Apple Vision / PyObjC are used through phone-harness or the host
+  operating system. They are not distributed with Journey Pilot.
+- Research sources under research/sources/ and raw experimental material under
+  experiments/ are excluded from the release-candidate export. Their rights are
+  not cleared for redistribution and are not covered by this notice.
+- Journey Pilot has no LICENSE file at this revision. The project owner must
+  decide whether and under what terms Journey Pilot itself is licensed.

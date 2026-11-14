@@ -1,0 +1,20 @@
+{
+  "task_key": "read-visible-profile-title",
+  "intent": "读取当前页面的个人主页标题；仅作定位兼容示例",
+  "environment_key": {"platform": "android"},
+  "steps": [
+    {
+      "step_id": "read_title",
+      "action": "read_field",
+      "effect_class": "observation",
+      "locator": {"description": "个人主页"},
+      "fallback": {"alternatives": [{"text": "个人主页"}]}
+    }
+  ],
+  "postconditions": {
+    "any": [
+      {"element_exists": {"description": "个人主页"}},
+      {"element_exists": {"text": "个人主页"}}
+    ]
+  }
+}
